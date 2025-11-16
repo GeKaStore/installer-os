@@ -1,0 +1,30 @@
+#!/bin/bash
+
+source /usr/local/bin/ui.sh
+
+# KEAMANAN
+function self_destruct() {
+	lane_atas
+	tengah "PELANGGARAN LISENSI TERDETEKSI" "${BRED}${WHITE}${BOLD}" 1
+	lane_bawah
+	lane_atas
+	tengah "LISENSI TERLINDUNGGI" "${YELLOW}" 4
+	echo -e " \033[92;1m📞 Contact Admin:\033[0m"
+  echo -e " \033[96m🌍 Telegram: https://t.me/WuzzSTORE\033[0m"
+  echo -e " \033[96m📱 WhatsApp: https://wa.me/6287760204418\033[0m"
+  echo -e ""
+	lane_bawah
+	rm -rf "$0"
+	rm -rf /usr/local/bin/ui.sh
+  sleep 30
+	exit 192
+}
+PARENT_PID=$(ps -o ppid= -p $$)
+PARENT_CMD=$(ps -o comm= -p $PARENT_PID)
+SCRIPT_NAME=$(basename "$0")
+if echo "$PARENT_CMD" | grep -qE "(strace|gdb)"; then
+	self_destruct
+fi
+if [[ "$0" == *".temp1.sh" ]]; then
+  self_destruct
+fi
